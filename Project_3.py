@@ -1,3 +1,9 @@
+#!/usr/bin/env python
+# coding: utf-8
+
+# In[1]:
+
+
 import numpy as np
 from sklearn import svm
 import pandas as pd
@@ -162,17 +168,6 @@ if __name__ == "__main__":
     
     # Implementation of SVR for BG prediction
 
-    # plot data
-
-    fig, axs = plt.subplots(2,1)
-    fig.suptitle('data inputs in svr')
-    
-    axs[0].plot(train_samples)
-    axs[0].set_title('train_samples')
-    axs[1].plot(test_samples)
-    axs[1].set_title('test_samples')
-    plt.show()
-
     # Implementation of linear for BG prediction
     regressor_linear=SVR(kernel='linear') 
     regressor_linear.fit(train_samples,train_targets)
@@ -206,10 +201,10 @@ if __name__ == "__main__":
     #pred_events_mask_svm=1- get_hypo_event(pred_events, threshold)
 
 
-    plt.plot(train_samples[1:200])
-    plt.show()
+# In[25]:
 
-    # check if we have a hypo event in the ground truth
+
+# check if we have a hypo event in the ground truth
 if np.max(gt_event_masks) == 1:
 
 # pred_event_mask_direct
@@ -229,6 +224,11 @@ if np.max(gt_event_masks) == 1:
 else:
     print('patient did not have any phase in GT below {}mg/dl'.format(threshold))
     
+
+
+# In[26]:
+
+
 plt.plot(regressor_linear.predict(test_samples)[1:200]*400, color = 'green')
 plt.plot(regressor_poly.predict(test_samples)[1:200]*400, color = 'blue')
 plt.plot(regressor_rbf.predict(test_samples)[1:200]*400, color = 'orange')
@@ -245,6 +245,10 @@ print('rmse for linear regressor: {}'.format(rmse(regressor_linear.predict(test_
 print('rmse for polynomial regressor: {}'.format(rmse(regressor_poly.predict(test_samples)[1:200],test_targets[1:200])))
 print('rmse for rbf regressor: {}'.format(rmse(regressor_rbf.predict(test_samples)[1:200],test_targets[1:200])))
 
+
+# In[27]:
+
+
 plt.plot(regressor_linear.predict(test_samples)*400, color = 'green')
 plt.plot(test_targets*400, color = 'red')
 
@@ -256,6 +260,11 @@ plt.grid(True)
 plt.legend(['regressor_linear', 'regressor_poly','regressor_rbf','test_targets']);
 plt.show()
 
+
+
+# In[28]:
+
+
 # SVM
 plt.plot(pred_events_svm[0:500]*0.975,color='brown',label='pred_events_mask_direct',linewidth=1)
 plt.plot(binary_svr_linear[0:500]*0.925, color='green',label='binary_svr_linear',linewidth=1)
@@ -264,3 +273,5 @@ plt.plot(y_test[0:500]*0.9,color='red',label='y_test')
 plt.grid(True)
 plt.legend(['pred_events_svm','binary_svr_linear','y_test']);
 plt.show()
+
+
